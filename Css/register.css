@@ -1,0 +1,138 @@
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: cursive;
+    }
+    
+    :root {
+        --primary-color: rgb(36, 36, 36);
+        --text-color: rgb(232, 231, 231);
+        --text-color2: rgb(39, 39, 39);
+        --button-color: rgb(254, 254, 254);
+        --button-color2: rgb(254, 174, 13);
+        --button-color3: rgb(131, 131, 131);
+        --logo-primary-color: rgb(254, 174, 13);
+        --logo-secondary-color: rgb(35, 28, 28);
+    }
+    
+    body {
+        background-color: var(--text-color2);
+        color: var(--text-color);
+    }
+    
+    .hub{
+        background-color: var(--logo-primary-color);
+        border-radius: 10px;
+        padding: 2px 9px;
+        margin-left: 3px;
+        color: var(--logo-secondary-color);
+    }
+
+    .register{
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .register h2{
+        font-size: 40px;
+    }
+    
+    .form-register {
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+    }
+    
+    .form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+    }
+    
+    .col1,
+    .col2,
+    .col3,
+    .col4,
+    .col5{
+        padding: 10px;
+    }
+    
+    .col1,
+    .col2,
+    .col3 {
+        grid-column: span 1;
+    }
+    .col4,
+    .col5 {
+        grid-column: span 2;
+    }
+    
+    .col1 input,
+    .col2 input,
+    .col3 input,
+    .col4 input,
+    .col5 input{
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        outline: none;
+    }
+    
+    .col1 label,
+    .col2 label,
+    .col3 label,
+    .col4 label,
+    .col5 label {
+        margin-left: 2px;
+        font-size: 20px;
+    }
+    
+    .col3 label {
+        margin-bottom: 5px;
+    }
+    
+    .col3 input[type="radio"] {
+        margin-right: 5px;
+        height: 15px;
+        width: 15px;
+        outline: none;
+    }
+    .col5 {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    }
+    
+
+    .form-register button{
+        position: absolute;
+        bottom: 0;
+        padding: 10px;
+        margin-bottom: 15px;
+        margin-left: 150px;
+        width: 260px;
+        cursor: pointer;
+        font-size: 25px;
+        font-weight: bold;
+        outline: none;
+        font-family: cursive;
+        border-radius: 10px;
+        background-color: var(--logo-primary-color);
+        color: var(--text-color2);
+    }
+
+    .Logo a{
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        height: 10px;
+        font-size: 50px;
+        color: var(--logo-primary-color);
+    }
