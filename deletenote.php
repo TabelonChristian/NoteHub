@@ -19,36 +19,50 @@ if (isset($_POST['note_id']) && !empty($_POST['note_id'])) {
     // Sanitize the note_id to prevent SQL injection
     $note_id = filter_var($_POST['note_id'], FILTER_SANITIZE_NUMBER_INT);
 
-    // Connect to the database using the connectDB() function
-    $pdo = connectDB();
+    // Connect to the database using the connectToDatabase() function
+    $pdo = connectToDatabase();
 
     if ($pdo === null) {
         // Handle database connection error
+        error_log("Failed to connect to the database.");
         echo "Failed to connect to the database.";
         exit();
     }
 
     try {
-        // Prepare a delete statement
-        $stmt = $pdo->prepare("DELETE FROM notetable WHERE note_id = :note_id AND user_id = :user_id");
-
-        // Bind parameters
+        // Check if the user is the owner of the note
+        $stmt = $pdo->prepare("SELECT * FROM notetable WHERE note_id = :note_id AND user_id = :user_id");
         $stmt->bindParam(':note_id', $note_id);
         $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
 
-        // Execute the statement
-        if ($stmt->execute()) {
-            // Redirect back to the dashboard after successful deletion
-            header("Location: dashboard.php");
-            exit();
+        if ($stmt->rowCount() > 0) {
+            // Prepare a delete statement
+            $stmt = $pdo->prepare("DELETE FROM notetable WHERE note_id = :note_id AND user_id = :user_id");
+
+            // Bind parameters
+            $stmt->bindParam(':note_id', $note_id);
+            $stmt->bindParam(':user_id', $user_id);
+
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Redirect back to the dashboard after successful deletion
+                header("Location: dashboard.php?note_deleted=true");
+                exit();
+            } else {
+                // Handle deletion failure
+                echo "Failed to delete the note.";
+                exit();
+            }
         } else {
-            // Handle deletion failure
-            echo "Failed to delete the note.";
+            // Handle unauthorized access
+            echo "You do not have permission to delete this note.";
             exit();
         }
     } catch (PDOException $e) {
         // Handle database errors
-        echo "Error: " . $e->getMessage();
+        error_log("Error: " . $e->getMessage());
+        echo "Error: Unable to process request";
         exit();
     }
 } else {
